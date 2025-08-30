@@ -1,0 +1,25 @@
+﻿# Build artefacts
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.lib
+*.pdb
+
+# Folders
+build/
+bin/
+out/
+obj/
+
+# IDE/editor
+.vscode/
+.idea/
+*.code-workspace
+*.iml
+
+# OS/Misc
+.DS_Store
+Thumbs.db
+*.log

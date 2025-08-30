@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -9,25 +9,25 @@
 
 #define BUFFER_SIZE    4096
 
-/* TEA‐nøkkel (128 bit) */
+/* TEAâ€nÃ¸kkel (128 bit) */
 #define TEA_KEY0 0x01234567UL
 #define TEA_KEY1 0x89ABCDEFUL
 #define TEA_KEY2 0xFEDCBA98UL
 #define TEA_KEY3 0x76543210UL
 
-/* part I - struktur delt mellom tråder */
+/* part I - struktur delt mellom trÃ¥der */
 typedef struct _THREADCTX {
-    char         *pszFileName;            /* input‐fil fra argv */
+    char         *pszFileName;            /* inputâ€fil fra argv */
     sem_t         semBufEmpty;            /* 1 = A kan skrive, 0 = vent */
     sem_t         semBufFull;             /* 1 = B kan lese, 0 = vent */
-    unsigned char aucBuffer[BUFFER_SIZE]; /* delt binær‐buffer */
+    unsigned char aucBuffer[BUFFER_SIZE]; /* delt binÃ¦râ€buffer */
     size_t        uiBytesRead;            /* antall byte A har fylt */
     int           iExitThreadA;           /* A ferdig? 1 = ja */
-    /* part I telle‐array (ikke brukt i part II) */
+    /* part I telleâ€array (ikke brukt i part II) */
     unsigned long aulCounts[256];
 } THREADCTX;
 
-/* DJB2‐hash */
+/* DJB2â€hash */
 static int Task2_SimpleDjb2Hash(FILE *fFileDescriptor, int *piHash)
 {
     int hash;
@@ -45,7 +45,7 @@ static int Task2_SimpleDjb2Hash(FILE *fFileDescriptor, int *piHash)
     return 0;
 }
 
-/* TEA‐kryptering */
+/* TEAâ€kryptering */
 static void tea_encrypt(uint32_t v[2], const uint32_t k[4])
 {
     uint32_t tmp[2];
@@ -112,7 +112,7 @@ static void *ThreadA_ReadFile(void *pCtx)
     return NULL;
 }
 
-/* thread B - teller byte‐forekomster */
+/* thread B - teller byteâ€forekomster */
 static void *ThreadB_CountBytes(void *pCtx)
 {
     THREADCTX *pst = (THREADCTX *)pCtx;
@@ -157,7 +157,7 @@ static void PartII_ProcessFile(const char *pszFileName)
         return;
     }
 
-    /* DBJ2‐hash fra fil */
+    /* DBJ2â€hash fra fil */
     Task2_SimpleDjb2Hash(fpIn, &iHash);
     fpHash = fopen("task4_pg2265.hash", "w");
     if (fpHash) {
@@ -181,7 +181,7 @@ static void PartII_ProcessFile(const char *pszFileName)
     fread(pBuf, 1, uiLen, fpIn);
     fclose(fpIn);
 
-    /* PKCS5‐padding til 64 byte */
+    /* PKCS5â€padding til 64 byte */
     uiPad   = 64 - (uiLen % 64);
     uiTotal = uiLen + uiPad;
     pPadded = (unsigned char *)malloc(uiTotal);
@@ -231,7 +231,7 @@ int main(int argc, char *argv[])
     memset(&stCtx, 0, sizeof(stCtx));
     stCtx.pszFileName = argv[1];
 
-    /* init semaforer - empty=1 vil A kunne skrive, full=0 må B vente*/
+    /* init semaforer - empty=1 vil A kunne skrive, full=0 mÃ¥ B vente*/
     sem_init(&stCtx.semBufEmpty, 0, 1);
     sem_init(&stCtx.semBufFull,  0, 0);
 
@@ -247,11 +247,11 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    /* venter på trådene i part 1 avslutter */
+    /* venter pÃ¥ trÃ¥dene i part 1 avslutter */
     pthread_join(tA, NULL);
     pthread_join(tB, NULL);
 
-    /* kjøreer part 2 - hash, pad, krypter og filskriving */
+    /* kjÃ¸reer part 2 - hash, pad, krypter og filskriving */
     PartII_ProcessFile(stCtx.pszFileName);
 
     /* rydder opp semaforer */
@@ -260,4 +260,5 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
 

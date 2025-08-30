@@ -1,4 +1,4 @@
-/* This file has been created by EWA, and is part of task 4 on the exam for PG3401 2025*/
+﻿/* This file has been created by EWA, and is part of task 4 on the exam for PG3401 2025*/
 /* Original code credited to David Wheeler and Roger Needham */
 /* Documentation: https://www.schneier.com/wp-content/uploads/2015/03/TEA-2.c */ 
 void encipher(unsigned int *const v,unsigned int *const w, const unsigned int *const k){
@@ -10,3 +10,4 @@ void encipher(unsigned int *const v,unsigned int *const w, const unsigned int *c
    }
    w[0]=y; w[1]=z;
 }
+

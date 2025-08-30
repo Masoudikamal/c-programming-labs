@@ -1,4 +1,4 @@
-/* This file has been created by EWA, and is part of task 4 on the exam for PG3401 2025*/
+﻿/* This file has been created by EWA, and is part of task 4 on the exam for PG3401 2025*/
 /* Original code credited to Dan Bernstein*/
 int Task2_SimpleDjb2Hash(FILE * fFileDescriptor, int* piHash) {
    int hash = 5381; 
@@ -13,3 +13,4 @@ int Task2_SimpleDjb2Hash(FILE * fFileDescriptor, int* piHash) {
    rewind(fFileDescriptor); 
    return 0; 
 }
+
