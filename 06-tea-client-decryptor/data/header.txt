@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Connection close
+Date: Sat, May 10 2025 12:21:32
+Server: Eastwill Assistant - EXAM 2025
+Content-Length: 648
+Content-Type: text/encrypted
+
