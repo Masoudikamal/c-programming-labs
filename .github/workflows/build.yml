@@ -1,0 +1,40 @@
+﻿name: build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential make
+
+      - name: Build each subproject
+        run: |
+          set -e
+          make -C 02-file-metadata
+          make -C 03-flight-scheduler
+          make -C 04-threaded-bytecounter
+          make -C 05-smtp-like-server
+          make -C 06-tea-client-decryptor
+
+      - name: Upload built binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: c-labs-binaries
+          path: |
+            02-file-metadata/filemeta
+            03-flight-scheduler/flights
+            04-threaded-bytecounter/bytecounter
+            05-smtp-like-server/maild
+            06-tea-client-decryptor/fetch
+            06-tea-client-decryptor/decrypt
